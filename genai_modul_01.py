@@ -1,6 +1,8 @@
 #
 # genai_modul_01.py
 #
+from IPython.display import display, Markdown
+
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.output_parsers import StrOutputParser
@@ -26,6 +28,10 @@ def setup_api_keys(key_names):
         value = userdata.get(key)
         if value:
             environ[key] = value
+            
+
+def mdprint(text):
+    display(Markdown(text))
 #
 # -- Standards
 #
