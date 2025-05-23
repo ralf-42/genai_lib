@@ -7,11 +7,8 @@ mit generativer KI sammeln möchten, ohne sich direkt mit komplexen APIs oder Fr
 auseinandersetzen zu müssen.
 
 Module:
-- config      : Zentrale Konfiguration wie Modellname, Temperatur usw.
-- setup       : Funktionen zur Erstellung von LLM, Prompt und Parser
-- chat        : Hauptfunktion zum Durchführen eines Chat-Durchlaufs mit Verlauf
-- tools       : Hilfsfunktionen wie Textzusammenfassung, Ausgabeformatierung
-- output (optional): Parser für strukturierte Ausgaben (JSON, Pydantic etc.)
+- folgt
+- folgt
 
 Beispiel:
     from genai_lib.setup import get_llm, get_prompt, get_parser
