@@ -1,3 +1,9 @@
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.messages import HumanMessage, AIMessage
+
+
 def setup_api_keys(key_names):
     """
     Setzt angegebene API-Keys aus Google Colab userdata als Umgebungsvariablen.
