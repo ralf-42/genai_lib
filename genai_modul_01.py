@@ -1,9 +1,3 @@
-#
-# genai_modul_01.py
-#
-#
-# -- Utility 
-#
 def setup_api_keys(key_names):
     """
     Setzt angegebene API-Keys aus Google Colab userdata als Umgebungsvariablen.
@@ -22,9 +16,8 @@ def setup_api_keys(key_names):
         value = userdata.get(key)
         if value:
             environ[key] = value
-#
-# -- Standards
-#
+
+
 def process_response(response):
     """
     Verarbeitet die Antwort eines LLM-Aufrufs und extrahiert strukturierte Informationen.
