@@ -31,7 +31,23 @@ def setup_api_keys(key_names):
             
 
 def mdprint(text):
+    """
+    Gibt den übergebenen Text als Markdown in Jupyter-Notebooks aus.
+
+    Diese Funktion nutzt IPythons `display()` zusammen mit `Markdown()`, 
+    um formatierte Markdown-Ausgabe in einem Jupyter-Notebook zu ermöglichen.
+
+    Parameter:
+    ----------
+    text : str
+        Der anzuzeigende Markdown-Text.
+
+    Beispiel:
+    ---------
+    >>> mdprint("# Überschrift\n**fett** und *kursiv*")
+    """
     display(Markdown(text))
+
 #
 # -- Standards
 #
