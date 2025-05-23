@@ -1,9 +1,13 @@
+#
+# genai_modul_01.py
+#
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.messages import HumanMessage, AIMessage
-
-
+from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
+#
+# -- Utility 
+#
 def setup_api_keys(key_names):
     """
     Setzt angegebene API-Keys aus Google Colab userdata als Umgebungsvariablen.
@@ -22,8 +26,9 @@ def setup_api_keys(key_names):
         value = userdata.get(key)
         if value:
             environ[key] = value
-
-
+#
+# -- Standards
+#
 def process_response(response):
     """
     Verarbeitet die Antwort eines LLM-Aufrufs und extrahiert strukturierte Informationen.
@@ -52,7 +57,35 @@ def process_response(response):
     }
 
 
-def run_chain(llm, prompt, history, user_input):
+
+def run_chain_01(llm, prompt_template, history, user_input):
+    """
+    Führt einen LLM-gestützten Chat-Durchlauf mit Prompt und Verlauf aus.
+
+    Diese vereinfachte Version verarbeitet die Antwort direkt ohne separate Postprocessing-Funktion.
+
+    Args:
+        llm: Ein LangChain-kompatibles LLM-Objekt, z. B. ChatOpenAI.
+        prompt_template: Ein ChatPromptTemplate mit MessagesPlaceholder für den Verlauf.
+        history (list): Liste bestehender Nachrichten (HumanMessage/AIMessage).
+        user_input (str): Die aktuelle Eingabe des Benutzers.
+
+    Returns:
+        tuple:
+            - response_text (str): Der bereinigte Textinhalt der Modellantwort.
+            - history (list): Der aktualisierte Nachrichtenverlauf.
+    """
+    messages = prompt_template.format_messages(chat_history=history, input=user_input)
+    response = llm.invoke(messages)
+
+    # Verlauf erweitern
+    history.append(HumanMessage(content=user_input))
+    history.append(AIMessage(content=response.content))
+
+    return response.content.strip(), history
+
+
+def run_chain_02(llm, prompt_template, history, user_input):
     """
     Führt einen LLM-gestützten Chat-Durchlauf mit Prompt und Verlauf aus.
 
@@ -62,8 +95,8 @@ def run_chain(llm, prompt, history, user_input):
 
     Args:
         llm: Ein LangChain-kompatibles LLM-Objekt, z. B. ChatOpenAI.
-        prompt: Ein ChatPromptTemplate mit MessagesPlaceholder für den Verlauf.
-        history (list): Liste bestehender Nachrichten (HumanMessage/AIMessage).
+        prompt_template: Ein ChatPromptTemplate mit MessagesPlaceholder für den Verlauf.
+        history (list): Liste bestehender Nachrichten (SystemMessage, HumanMessage, AIMessage).
         user_input (str): Die aktuelle Eingabe des Benutzers.
 
     Returns:
@@ -71,7 +104,7 @@ def run_chain(llm, prompt, history, user_input):
             - processed (dict): Strukturierte Ausgabe der Modellantwort, z. B. über `process_response()`.
             - history (list): Der aktualisierte Nachrichtenverlauf.
     """
-    messages = prompt.format_messages(chat_history=history, input=user_input)
+    messages = prompt_template.format_messages(chat_history=history, input=user_input)
     response = llm.invoke(messages)
 
     # Verlauf erweitern
@@ -84,13 +117,13 @@ def run_chain(llm, prompt, history, user_input):
 
 
 
-def run_chain_strparser(llm, prompt, history, user_input, parser=StrOutputParser()):
+def run_chain_strparser(llm, prompt_template, history, user_input, parser=StrOutputParser()):
     """
     Führt eine Chat-Anfrage durch, verarbeitet die Antwort und aktualisiert den Chatverlauf.
 
     Args:
         llm (ChatOpenAI): Das zu verwendende LLM-Modell.
-        prompt (ChatPromptTemplate): Der Prompt mit Nachrichtenstruktur.
+        prompt_template (ChatPromptTemplate): Der Prompt mit Nachrichtenstruktur.
         history (list): Liste bisheriger Nachrichten (Chatverlauf).
         user_input (str): Neue Benutzereingabe.
         parser (OutputParser): Parser zur Nachverarbeitung der Ausgabe (default: StrOutputParser).
@@ -99,7 +132,7 @@ def run_chain_strparser(llm, prompt, history, user_input, parser=StrOutputParser
         tuple: (Antworttext, aktualisierter Chatverlauf)
     """
     # Chain vorbereiten
-    chain = prompt | llm | parser
+    chain = prompt_template | llm | parser
 
     # Eingaben zusammensetzen
     inputs = {
