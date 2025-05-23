@@ -7,6 +7,22 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
+
+def build_prompt():
+    """
+    Erzeugt einen ChatPromptTemplate mit Platzhaltern für:
+    - System-Prompt
+    - Chatverlauf
+    - aktuelle Benutzereingabe
+
+    Returns:
+        ChatPromptTemplate: Ein konfigurierter Prompt für Chat-Modelle.
+    """
+    return ChatPromptTemplate.from_messages([
+        ("system", "{system}"),
+        MessagesPlaceholder(variable_name="chat_history"),
+        ("human", "{input}")
+    ])
 #
 # -- Utility 
 #
@@ -51,6 +67,23 @@ def mdprint(text):
 #
 # -- Standards
 #
+def build_chat_prompt():
+    """
+    Erzeugt einen ChatPromptTemplate mit Platzhaltern für:
+    - System-Prompt
+    - Chatverlauf
+    - aktuelle Benutzereingabe
+
+    Returns:
+        ChatPromptTemplate: Ein konfigurierter Prompt für Chat-Modelle.
+    """
+    return ChatPromptTemplate.from_messages([
+        ("system", "{system}"),
+        MessagesPlaceholder(variable_name="chat_history"),
+        ("human", "{user_input}")
+    ])
+    
+    
 def process_response(response):
     """
     Verarbeitet die Antwort eines LLM-Aufrufs und extrahiert strukturierte Informationen.
