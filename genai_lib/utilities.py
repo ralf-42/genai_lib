@@ -1,5 +1,5 @@
 #
-# genai_modul_01.py
+# utilities.py
 #
 from IPython.display import display, Markdown
 import requests
@@ -120,9 +120,11 @@ def setup_api_keys(key_names, create_globals=True):
     """
     from google.colab import userdata
     from os import environ
+    import inspect
     
-    # Zugriff auf den globalen Namespace
-    global_namespace = globals()
+    # Zugriff auf den globalen Namespace des aufrufenden Moduls
+    caller_frame = inspect.currentframe().f_back
+    caller_globals = caller_frame.f_globals
     
     for key in key_names:
         try:
@@ -131,9 +133,9 @@ def setup_api_keys(key_names, create_globals=True):
                 # Umgebungsvariable setzen
                 environ[key] = value
                 
-                # Optional: Globale Variable erstellen
+                # Optional: Globale Variable im aufrufenden Modul erstellen
                 if create_globals:
-                    global_namespace[key] = value
+                    caller_globals[key] = value
                     
                 print(f"✓ {key} erfolgreich gesetzt")
             else:
@@ -157,8 +159,7 @@ if __name__ == "__main__":
     # print(os.environ["OPENAI_API_KEY"])  # Umgebungsvariable
     
     # Ohne globale Variablen (nur Umgebungsvariablen):
-    # setup_api_keys(["ANOTHER_KEY"], create_globals=False)
-            
+    # setup_api_keys(["ANOTHER_KEY"], create_globals=False)            
 
 def mprint(text):
     """
