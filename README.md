@@ -5,14 +5,14 @@ Willkommen im GitHub-Repository zur Kursbibliothek des Kurses **"Anwendung Gener
 
 Dieses Repository enthält Module, die im Rahmen des Kurses verwendet und bereitgestellt werden. Ziel ist es, Teilnehmer:innen den Einstieg und die praktische Anwendung generativer KI-Technologien zu erleichtern.
 
----
+ 
 
 ## Inhalt
 
 - **Hilfsmittel:** Utility-Skripte und Tools zur Vereinfachung des Workflows
 - **Funktionen**: 
 
----
+ 
 
 ## Voraussetzungen
 
@@ -22,7 +22,7 @@ Dieses Repository enthält Module, die im Rahmen des Kurses verwendet und bereit
 
 Eine genaue Liste der Abhängigkeiten findet man in der Datei `requirements.txt`.
 
----
+ 
 
 ## Installation & Import
 
