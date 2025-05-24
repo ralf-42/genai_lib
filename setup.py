@@ -39,9 +39,6 @@ setup(
     install_requires=[
         "langchain_openai ",
         "langchain_community",
-        "gardio",
-        "pdfkit",
-        "pypdf",
 
     ],
 
