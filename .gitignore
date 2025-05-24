@@ -15,4 +15,5 @@
 
 # Erlaube Git, spezifische Verzeichnisse/Dateien zu verfolgen
 !requirements.txt
+!setup.py
 

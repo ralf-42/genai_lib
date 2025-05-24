@@ -1,4 +1,4 @@
-# Anwendung Generativer KI - Kursbibliothek
+# Kursbibliothek - Anwendung Generativer KI
 ---
 
 Willkommen im GitHub-Repository zur Kursbibliothek des Kurses **"Anwendung Generativer KI"**!
