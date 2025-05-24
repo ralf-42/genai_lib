@@ -1,0 +1,6 @@
+# Liste der zu Anfang benötigten Module
+langchain_openai
+langchain-community
+langchain-text-splitters
+huggingface-hub
+gradio 
