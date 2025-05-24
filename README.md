@@ -10,7 +10,7 @@ Dieses Repository enthält Module, die im Rahmen des Kurses verwendet und bereit
 ## Inhalt
 
 - **Hilfsmittel:** Utility-Skripte und Tools zur Vereinfachung des Workflows
-- **Funktionen**: 
+- **Supporter**: Weitere Funktionen, die eine Erstellung von Anwendungen vereinfacht
 
  
 
