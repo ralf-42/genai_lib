@@ -1,32 +1,16 @@
-# Prerequisites
-*.d
+# Ignoriere Verzeichnisse
+/*
+/*/_misc
+/*/*/_misc
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
 
-# Precompiled Headers
-*.gch
-*.pch
+# Ignoriere Dateien nach einem vorgegebenen Muster
+*.pptx
+*.png
+*.jpeg
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+# Ignoriere Dateien
 
-# Fortran module files
-*.mod
-*.smod
+# Erlaube Git, spezifische Verzeichnisse/Dateien zu verfolgen
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
 
-# Executables
-*.exe
-*.out
-*.app
