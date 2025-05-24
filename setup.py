@@ -9,7 +9,7 @@ setup(
     name='genai_lib',
     version='0.1.0',
     author='Ralf Bendig',
-    author_email='deine_email@example.com', # Es ist gut, eine E-Mail-Adresse anzugeben
+    author_email='deine_email@example.com', 
     description='Leichtgewichtige Bibliothek für den Kurs GenAI.',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
