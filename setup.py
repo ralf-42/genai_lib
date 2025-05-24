@@ -29,11 +29,9 @@ setup(
     # in deinem Projekt.
     # Wenn dein Hauptcode z.B. in einem Ordner namens 'genai_lib' liegt,
     # wird dieser gefunden.
-    packages=find_packages(where="module_01.py"), # Sucht Pakete im aktuellen Verzeichnis
+    # packages=find_packages(where="."), # Sucht Pakete im aktuellen Verzeichnis
 
-    # Alternativ, wenn du nur ein einzelnes Python-Modul im Stammverzeichnis hast
-    # (z.B. eine Datei genai_lib.py statt eines Ordners genai_lib/):
-    # py_modules=["genai_lib"],
+   
 
     # Optional: Liste hier alle Abhängigkeiten auf, die dein Paket benötigt.
     # Diese werden automatisch mitinstalliert, wenn dein Paket installiert wird.
