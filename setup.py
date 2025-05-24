@@ -37,7 +37,8 @@ setup(
     # Diese werden automatisch mitinstalliert, wenn dein Paket installiert wird.
     # Beispiel: install_requires=["numpy>=1.20", "requests"],
     install_requires=[
-        # "pandas",
+        "langchain_openai ",
+ 
         # "openai",
         # "torch"
     ],
