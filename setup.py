@@ -14,7 +14,7 @@ setup(
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     url='https://github.com/ralf-42/genai_lib',
-    packages=find_packages(),
+    packages=find_packages(where="."),
     install_requires=read_requirements(),
     classifiers=[
         "Development Status :: 3 - Alpha",
