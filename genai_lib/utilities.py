@@ -85,7 +85,7 @@ def get_ipinfo():
 
 
     
-def setup_api_keys(key_names):
+def setup_api_keys_alt(key_names):
     """
     Setzt angegebene API-Keys aus Google Colab userdata als Umgebungsvariablen.
 
@@ -103,6 +103,61 @@ def setup_api_keys(key_names):
         value = userdata.get(key)
         if value:
             environ[key] = value
+
+def setup_api_keys(key_names, create_globals=True):
+    """
+    Setzt angegebene API-Keys aus Google Colab userdata als Umgebungsvariablen
+    und optional als globale Variablen.
+    
+    Args:
+        key_names (list[str]): Liste der Namen der API-Keys (z.B. ["OPENAI_API_KEY", "HF_TOKEN"]).
+        create_globals (bool): Wenn True, werden auch globale Variablen erstellt (Standard: True).
+    
+    Hinweis:
+        Die API-Keys werden direkt in die Umgebungsvariablen geschrieben,
+        aber NICHT zurückgegeben, um unbeabsichtigte Sichtbarkeit zu vermeiden.
+        Bei create_globals=True werden zusätzlich globale Variablen mit den Key-Namen erstellt.
+    """
+    from google.colab import userdata
+    from os import environ
+    
+    # Zugriff auf den globalen Namespace
+    global_namespace = globals()
+    
+    for key in key_names:
+        try:
+            value = userdata.get(key)
+            if value:
+                # Umgebungsvariable setzen
+                environ[key] = value
+                
+                # Optional: Globale Variable erstellen
+                if create_globals:
+                    global_namespace[key] = value
+                    
+                print(f"✓ {key} erfolgreich gesetzt")
+            else:
+                print(f"⚠ {key} nicht in userdata gefunden")
+                
+        except Exception as e:
+            print(f"✗ Fehler beim Setzen von {key}: {e}")
+
+
+# Beispiel für die Verwendung:
+if __name__ == "__main__":
+    # API-Keys setzen (mit globalen Variablen)
+    setup_api_keys([
+        "OPENAI_API_KEY", 
+        "HF_TOKEN", 
+        "ANTHROPIC_API_KEY"
+    ])
+    
+    # Jetzt können die Keys sowohl als Umgebungsvariable als auch als globale Variable verwendet werden:
+    # print(OPENAI_API_KEY)  # Globale Variable
+    # print(os.environ["OPENAI_API_KEY"])  # Umgebungsvariable
+    
+    # Ohne globale Variablen (nur Umgebungsvariablen):
+    # setup_api_keys(["ANOTHER_KEY"], create_globals=False)
             
 
 def mprint(text):
