@@ -1,5 +1,27 @@
+# LangChain Einsatz
 langchain_openai
 langchain-community
 langchain-text-splitters
+
+# Strukturierte Ausgabe, Validierung
+pydantic
+
+# UI-Komponenten
+gradio
+
+# Optional: Retrieval & Datenintegration
+chromadb
+sqlalchemy
+
+# Optional: Bildverarbeitung
+pillow
+opencv-python
+
+# Optional: Audio + Speech
+torchaudio
+transformers
+datasets
+
+# Optional: Lokale Modelle + Hugging Face
 huggingface-hub
-gradio 
+
