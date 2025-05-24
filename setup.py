@@ -15,7 +15,7 @@ setup(
     version="0.1.0",  # Erforderlich: Die aktuelle Version deines Pakets.
                       # Folge semantischer Versionierung (z.B. MAJOR.MINOR.PATCH).
 
-    author="Dein Name",  # Optional: Dein Name oder der Name deiner Organisation.
+    author="Ralf Bendig",  # Optional: Dein Name oder der Name deiner Organisation.
     author_email="deine_email@example.com",  # Optional: Deine Kontakt-E-Mail.
 
     description="Eine kurze Beschreibung deiner GenAI-Bibliothek.",  # Optional, aber empfohlen.
@@ -29,7 +29,7 @@ setup(
     # in deinem Projekt.
     # Wenn dein Hauptcode z.B. in einem Ordner namens 'genai_lib' liegt,
     # wird dieser gefunden.
-    packages=find_packages(where="."), # Sucht Pakete im aktuellen Verzeichnis
+    packages=find_packages(where="module_01.py"), # Sucht Pakete im aktuellen Verzeichnis
 
     # Alternativ, wenn du nur ein einzelnes Python-Modul im Stammverzeichnis hast
     # (z.B. eine Datei genai_lib.py statt eines Ordners genai_lib/):
