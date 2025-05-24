@@ -1,24 +1,5 @@
-# Core Generative AI + LangChain
-openai>=1.0.0
-langchain-core>=0.3.0
-langchain-community>=0.3.0
-langchain-openai>=0.3.0
-langchain-text-splitters>=0.3.0
-
-# Strukturierte Ausgabe, Validierung
-pydantic>=1.10.0
-
-# UI-Komponenten
-gradio>=5.16
-
-# Optional: Retrieval & Datenintegration
-chromadb
-sqlalchemy
-
-# Optional: Bildverarbeitung
-pillow
-opencv-python
-
-# Optional: Lokale Modelle + Hugging Face
+langchain_openai
+langchain-community
+langchain-text-splitters
 huggingface-hub
-
+gradio
