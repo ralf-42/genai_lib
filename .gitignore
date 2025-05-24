@@ -1,19 +1,41 @@
-# Ignoriere Verzeichnisse
-/*
+# Ignoriere Git-spezifische Dateien (optional, aber gute Praxis)
+.git/
+.gitignore
 
-/*/_misc
-/*/*/_misc
+# Ignoriere Python-spezifische Dateien und Verzeichnisse
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+.venv/
+venv/
 
+# Ignoriere das Verzeichnis _misc, egal wo es auftaucht
+_misc/
 
 # Ignoriere Dateien nach einem vorgegebenen Muster
 *.pptx
 *.png
 *.jpeg
 
-# Ignoriere Dateien
+# Ignoriere temporäre/generierte Dateien, falls sie nicht explizit benötigt werden
+# *~
+# #*#
+# .#*
 
+# Erlaube Git, spezifische Verzeichnisse/Dateien zu verfolgen (innerhalb des Pakets!)
+# Diese Zeilen sind meist nur relevant, wenn Sie zuvor alles ignoriert haben.
+# Für setup.py und requirements.txt sind sie nicht unbedingt nötig, wenn Sie nicht
+# *alle* Dateien im Root ignorieren und dann nur einzelne erlauben.
+# !requirements.txt
+# !setup.py
 
-# Erlaube Git, spezifische Verzeichnisse/Dateien zu verfolgen
-!requirements.txt
-!setup.py
-
+# Da Sie den Namen des Paketordners "genai_lib" haben, würde man hier
+# normalerweise keinen Ausschlusspfad für die Dateien im Paket definieren,
+# es sei denn, Sie haben ein sehr aggressives Ignorierungs-Muster.
+# Wenn Sie z.B. /* am Anfang hätten, würde es alles ignorieren und Sie müssten
+# dann spezifische Dateien erlauben, wie z.B. für das Paket:
+# !/genai_lib/
+# !/genai_lib/*
+# !/genai_lib/*/*
