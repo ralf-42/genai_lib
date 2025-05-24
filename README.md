@@ -27,6 +27,6 @@ Eine genaue Liste der Abhängigkeiten findet man in der Datei `requirements.txt`
 ## Installation & Import
 
 - !uv pip install --system --prerelease allow -q git+https://github.com/ralf-42/genai_lib
-- from utilities import setup_api_keys, ...
+- from genai_lib.utilities import setup_api_keys ...
 
 
