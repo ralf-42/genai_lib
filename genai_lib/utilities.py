@@ -1,14 +1,15 @@
 #
 # utilities.py
 #
+# Stand: 25.05.2025
+#
 from IPython.display import display, Markdown
 import requests
 import sys
 import warnings
 import subprocess
-
 #
-# -- Utility 
+# -- Sannlung von Standard-Funktionen für den Kurs
 #
 
 def check_environment():
@@ -41,7 +42,6 @@ def check_environment():
     warnings.filterwarnings("ignore")
     warnings.filterwarnings("ignore", category=DeprecationWarning)
     warnings.filterwarnings("ignore", category=UserWarning, module="langsmith.client")
-
 
 
 def get_ipinfo():
@@ -141,6 +141,7 @@ if __name__ == "__main__":
     # Ohne globale Variablen (nur Umgebungsvariablen):
     # setup_api_keys(["ANOTHER_KEY"], create_globals=False)            
 
+
 def mprint(text):
     """
     Gibt den übergebenen Text als Markdown in Jupyter-Notebooks aus.
@@ -158,3 +159,31 @@ def mprint(text):
     >>> mdprint("# Überschrift\n**fett** und *kursiv*")
     """
     display(Markdown(text))
+
+
+def process_response(response):
+    """
+    Verarbeitet die Antwort eines LLM-Aufrufs und extrahiert strukturierte Informationen.
+
+    Diese Hilfsfunktion nimmt ein Antwortobjekt (z. B. vom Typ `AIMessage`) entgegen,
+    extrahiert den Textinhalt sowie Token-Nutzungsdaten und gibt diese als Wörterbuch zurück.
+
+    Args:
+        response (AIMessage): Das Antwortobjekt des LLMs mit Metadaten.
+
+    Returns:
+        dict: Ein Dictionary mit folgenden Schlüsseln:
+            - 'text' (str): Der bereinigte Textinhalt der Modellantwort.
+            - 'tokens_total' (int or None): Gesamtanzahl der verwendeten Tokens.
+            - 'tokens_prompt' (int or None): Anzahl Tokens für den Prompt.
+            - 'tokens_completion' (int or None): Anzahl Tokens für die generierte Antwort.
+    """
+    meta = response.response_metadata or {}
+    usage = meta.get("token_usage", {})
+
+    return {
+        "text": response.content.strip(),
+        "tokens_total": usage.get("total_tokens"),
+        "tokens_prompt": usage.get("prompt_tokens"),
+        "tokens_completion": usage.get("completion_tokens")
+    }
