@@ -1,7 +1,7 @@
 #
 # utilities.py
 #
-# Stand: 25.05.2025
+# Stand: 10.07.2025
 #
 from IPython.display import display, Markdown
 import requests
@@ -9,7 +9,7 @@ import sys
 import warnings
 import subprocess
 #
-# -- Sannlung von Standard-Funktionen für den Kurs
+# -- Sammlung von Standard-Funktionen für den Kurs
 #
 
 def check_environment():
@@ -187,3 +187,52 @@ def process_response(response):
         "tokens_prompt": usage.get("prompt_tokens"),
         "tokens_completion": usage.get("completion_tokens")
     }
+
+
+# Importiere die IPython-Umgebung, um Shell-Befehle wie !uv pip install ausführen zu können
+from IPython import get_ipython
+
+# Unterdrücke ImportWarnings, die z. B. durch inkompatible Import-Hooks in Colab ausgelöst werden können
+import warnings
+warnings.simplefilter("ignore", ImportWarning)
+
+def install_packages(modules):
+    """
+    Installiert eine Liste von Python-Modulen mit 'uv pip install' in einer Google-Colab-Umgebung,
+    wenn sie noch nicht importierbar sind.
+
+    Parameter:
+    ----------
+    modules : list of str
+        Eine Liste von Modulnamen, die importiert bzw. installiert werden sollen.
+
+    Funktionsweise:
+    ---------------
+    - Versucht, jedes angegebene Modul mit 'import' zu laden.
+    - Falls der Import fehlschlägt (Modul nicht installiert):
+        -> führt 'uv pip install --system -q <modulname>' aus.
+    - Gibt für jedes Modul eine Erfolgsmeldung oder eine Fehlermeldung aus.
+    
+    Voraussetzungen:
+    ----------------
+    - Die Funktion ist für die Ausführung in Google Colab gedacht.
+    - 'uv' muss bereits installiert sein.
+    - Die IPython-Umgebung muss aktiv sein (z. B. in Colab-Notebooks).
+    """
+    # Zugriff auf das aktuelle IPython-Shell-Objekt
+    shell = get_ipython()
+    
+    for module_name in modules:
+        try:
+            # Versuche, das Modul zu importieren
+            exec(f"import {module_name}")
+            print(f"✅ {module_name} bereits installiert")
+        except ImportError:
+            try:
+                # Falls ImportError: Installiere das Modul über uv (ruhige Installation)
+                shell.run_line_magic("system", f"uv pip install --system -q {module_name}")
+                print(f"✅ {module_name} erfolgreich installiert")
+            except Exception as e:
+                # Bei Fehler während der Installation
+                print(f"⚠️ Fehler bei der Installation von {module_name}: {e}")
+
