@@ -189,17 +189,6 @@ if __name__ == "__main__":
     # setup_api_keys(["ANOTHER_KEY"], create_globals=False)            
 
 
-def set_globals(**kwargs):
-    """
-    Setzt beliebige globale Variablen anhand von Schlüsselwortargumenten.
-    
-    Beispiel:
-        set_globals(api_key="123abc", model_name="gpt-4")
-        # erzeugt zwei globale Variablen: api_key und model_name
-    """
-    globals().update(kwargs)
-
-
 def mprint(text):
     """
     Gibt den übergebenen Text als Markdown in Jupyter-Notebooks aus.
