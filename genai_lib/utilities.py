@@ -50,45 +50,65 @@ from IPython import get_ipython
 import warnings
 warnings.simplefilter("ignore", ImportWarning)
 
-def install_packages(modules):
+def install_packages(packages):
     """
-    Installiert eine Liste von Python-Modulen mit 'uv pip install' in einer Google-Colab-Umgebung,
+    Installiert eine Liste von Python-Paketen mit 'uv pip install' in einer Google-Colab-Umgebung,
     wenn sie noch nicht importierbar sind.
-
+    
     Parameter:
     ----------
-    modules : list of str
-        Eine Liste von Modulnamen, die importiert bzw. installiert werden sollen.
-
+    packages : list of str or list of tuple
+        Eine Liste von Paketnamen oder Tupeln (install_name, import_name).
+        Beispiele:
+        - ['numpy', 'pandas'] 
+        - [('markitdown[all]', 'markitdown'), 'langchain_chroma']
+    
     Funktionsweise:
     ---------------
+    - Trennt zwischen Installationsname (für pip) und Importname (für Python).
     - Versucht, jedes angegebene Modul mit 'import' zu laden.
-    - Falls der Import fehlschlägt (Modul nicht installiert):
-        -> führt 'uv pip install --system -q <modulname>' aus.
-    - Gibt für jedes Modul eine Erfolgsmeldung oder eine Fehlermeldung aus.
+    - Falls der Import fehlschlägt: führt 'uv pip install --system -q <paketname>' aus.
+    - Gibt für jedes Paket eine Erfolgsmeldung oder eine Fehlermeldung aus.
     
     Voraussetzungen:
     ----------------
     - Die Funktion ist für die Ausführung in Google Colab gedacht.
     - 'uv' muss bereits installiert sein.
-    - Die IPython-Umgebung muss aktiv sein (z. B. in Colab-Notebooks).
+    - Die IPython-Umgebung muss aktiv sein (z. B. in Colab-Notebooks).
     """
+    import importlib
+    
     # Zugriff auf das aktuelle IPython-Shell-Objekt
     shell = get_ipython()
     
-    for module_name in modules:
+    for package in packages:
+        # Bestimme Install- und Import-Namen
+        if isinstance(package, tuple):
+            install_name, import_name = package
+        else:
+            # Falls nur ein Name gegeben ist, verwende ihn für beide
+            install_name = import_name = package
+        
         try:
             # Versuche, das Modul zu importieren
-            exec(f"import {module_name}")
-            print(f"✅ {module_name} bereits installiert")
+            # Verwende importlib anstatt exec für sicheren Import
+            importlib.import_module(import_name)
+            print(f"✅ {import_name} bereits verfügbar")
+            
         except ImportError:
             try:
-                # Falls ImportError: Installiere das Modul über uv (ruhige Installation)
-                shell.run_line_magic("system", f"uv pip install --system -q {module_name}")
-                print(f"✅ {module_name} erfolgreich installiert")
-            except Exception as e:
-                # Bei Fehler während der Installation
-                print(f"⚠️ Fehler bei der Installation von {module_name}: {e}")
+                # Falls ImportError: Installiere das Paket über uv
+                print(f"🔄 Installiere {install_name}...")
+                shell.run_line_magic("system", f"uv pip install --system -q {install_name}")
+                
+                # Versuche erneut zu importieren nach der Installation
+                importlib.import_module(import_name)
+                print(f"✅ {install_name} erfolgreich installiert und importiert")
+                
+            except ImportError as import_error:
+                print(f"❌ {install_name} installiert, aber Import von {import_name} fehlgeschlagen: {import_error}")
+            except Exception as install_error:
+                print(f⚠️ Fehler bei der Installation von {install_name}: {install_error}")
 
 
 def get_ipinfo():
