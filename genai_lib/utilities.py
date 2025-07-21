@@ -1,7 +1,7 @@
 #
 # utilities.py
 #
-# Stand: 10.07.2025
+# Stand: 21.07.2025
 #
 from IPython.display import display, Markdown
 import requests
@@ -108,7 +108,7 @@ def install_packages(packages):
             except ImportError as import_error:
                 print(f"❌ {install_name} installiert, aber Import von {import_name} fehlgeschlagen: {import_error}")
             except Exception as install_error:
-                print(f⚠️ Fehler bei der Installation von {install_name}: {install_error}")
+                print(f"⚠️ Fehler bei der Installation von {install_name}: {install_error}")
 
 
 def get_ipinfo():
