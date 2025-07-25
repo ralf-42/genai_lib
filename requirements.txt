@@ -1,9 +1,9 @@
-# LangChain Einsatz
+# LangChain & Chroma Einsatz
 langchain_openai
 langchain-community
 langchain-text-splitters
 langchain_experimental
 langchain-ollama
-langchain[hub]
+chromadb
 
 
